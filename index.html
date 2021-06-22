@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>HTML Video Vision</title>
+
+		<video id="video" autoplay onclick="setTimeout(TakePhoto, 3000);"></video>
+		<button id="snap" onclick="TakePhoto()">Snap Photo</button>
+		<!--<canvas id="canvas" width="640" height="480"></canvas>-->
+		<canvas id="canvas" width="1280" height="720"></canvas>
+
+		<script>
+
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            var video = document.getElementById('video');
+
+            const hdConstraints = {
+                video: {width: {min: 1280}, height: {min: 720}}
+                // video: true
+            };
+
+            navigator.mediaDevices.getUserMedia(hdConstraints).
+            then((stream) => {video.srcObject = stream});
+
+            // const video = document.querySelector('video');
+
+            // function update(stream) {
+            //     document.querySelector('video').src = stream.url;
+            // }
+
+            function hasGetUserMedia() {
+                return !!(navigator.mediaDevices &&
+                    navigator.mediaDevices.getUserMedia);
+            }
+
+            if (hasGetUserMedia()) {
+                // Good to go!
+            } else {
+                alert('getUserMedia() is not supported by your browser');
+            }
+
+            function TakePhoto() {
+
+                context.drawImage(video, 0, 0, 1280, 720);
+				alert('Take Photo');
+
+	            SendToVision();
+
+            }
+
+			function SendToVision() {
+
+                alert('Send to Vision');
+            }
+
+		</script>
+
+	</head>
+	<body>
+
+
+	</body>
+</html>
